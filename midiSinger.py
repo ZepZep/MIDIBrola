@@ -12,11 +12,13 @@ if len(sys.argv) < 2:
     quit()
 FILENAME = sys.argv[1]
 
+# converts midi file to text note representation
 command = "./"+DIR_NAME+"/midi2notes " + FILENAME
 miditext = os.popen(command).read()
 notes = miditext.split("\n")
 tracks = set([])
 
+# checks for tracks in the midi file
 for note in notes:
     words = note.split()
 
@@ -29,8 +31,8 @@ for note in notes:
 
 print("Found", tracks, "MIDI tracks")
 
+# puts notes to the PhoSong
 song = PhoSong(TIMEWARP)
-
 for track in tracks:
     VOCAL = "a:"
     phoText = ""
@@ -52,8 +54,10 @@ for track in tracks:
 
             song.addNote(tone, beg, end, track)
 
+# checks the number of mono tracks
 tracks = set(song.tracks.keys())
 print("Converted to", tracks, "mono tracks")
 
+# creates wav file
 outFileName = ".".join(FILENAME.split(".")[:-1])
 song.makeWav(DIR_NAME, outFileName)

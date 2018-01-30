@@ -19,6 +19,7 @@ class PhoSong:
 
 
     def addNote(self, note, beg, end, prefTrack):
+        """Adds note to the preffered Mono track. If the track is full, creates new track."""
         if prefTrack not in self.tracks:
             self.createTrack(prefTrack)
 
@@ -39,6 +40,7 @@ class PhoSong:
 
 
     def note2freq(self, note):
+        """converts note number to frequency"""
         delta = note - 60
         return int(self.ctone * self.halftone ** delta)
 
@@ -57,6 +59,7 @@ class PhoSong:
         return trackName
 
     def dumpPhos(self, DIR_NAME):
+        """Creates the .pho files necessary for mbrola"""
         TIMEWARP = self.timewarp
         MAX_WAIT_LEN = self.waitMaxLen
         for track in self.tracks.keys():
@@ -89,6 +92,7 @@ class PhoSong:
                 f.write(phoText)
 
     def makeWav(self, DIR_NAME, filename):
+        """Converts the tracks to wav using mbrola"""
         self.dumpPhos(DIR_NAME)
 
         # print(self.tracks)
