@@ -1,0 +1,6 @@
+.directory
+*.midi
+*.mid
+*.pho
+*.wav
+__pycache__
